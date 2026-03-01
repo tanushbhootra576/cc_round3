@@ -219,9 +219,7 @@ MongoDB
 ---
 
 
-MIT
 
----
 
 ## Support
 
