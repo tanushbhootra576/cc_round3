@@ -1,6 +1,9 @@
 ﻿import { useEffect, useState, useRef, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+
+// Returns Cloudinary/remote URLs as-is; prepends backend host for legacy local paths
+const imgUrl = (u) => u ? (u.startsWith('http') ? u : `http://localhost:5000${u}`) : null;
 import { useAuth } from '../context/AuthContext';
 import StatusBadge from '../components/StatusBadge';
 import TransparencyLoop from '../components/TransparencyLoop';
@@ -201,7 +204,7 @@ export default function IssueDetail() {
                   <div className="relative bg-gray-100" style={{ minHeight: 200 }}>
                     {current?.imageUrl ? (
                       <img
-                        src={`http://localhost:5000${current.imageUrl}`}
+                        src={imgUrl(current.imageUrl)}
                         alt={`Report ${clusterSlideIdx + 1}`}
                         className="w-full object-cover"
                         style={{ maxHeight: 280 }}
@@ -326,8 +329,8 @@ export default function IssueDetail() {
                   <span className="mono text-[10px] text-gray-500 tracking-widest">BEFORE / AFTER COMPARISON</span>
                 </div>
                 <CompareImage
-                  leftImage={issue.photoUrl ? `http://localhost:5000${issue.photoUrl}` : `http://localhost:5000${issue.imageUrl}`}
-                  rightImage={`http://localhost:5000${issue.resolutionPhotoUrl}`}
+                  leftImage={imgUrl(issue.photoUrl || issue.imageUrl)}
+                  rightImage={imgUrl(issue.resolutionPhotoUrl)}
                   leftImageLabel="BEFORE"
                   rightImageLabel="AFTER"
                   sliderLineColor="#0f62fe"
@@ -337,8 +340,8 @@ export default function IssueDetail() {
               </div>
             ) : (
               <TransparencyLoop
-                beforeUrl={issue.photoUrl ? `http://localhost:5000${issue.photoUrl}` : (issue.imageUrl ? `http://localhost:5000${issue.imageUrl}` : null)}
-                afterUrl={issue.resolutionPhotoUrl ? `http://localhost:5000${issue.resolutionPhotoUrl}` : null}
+                beforeUrl={imgUrl(issue.photoUrl || issue.imageUrl)}
+                afterUrl={imgUrl(issue.resolutionPhotoUrl)}
               />
             )}
 

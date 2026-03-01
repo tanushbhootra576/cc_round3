@@ -2,6 +2,9 @@
 import StatusBadge from './StatusBadge';
 import { ShieldCheck, Flame, MapPin, Activity, Building2 } from 'lucide-react';
 
+// Returns Cloudinary/remote URLs as-is; prepends backend host for legacy local paths
+const imgUrl = (u) => u ? (u.startsWith('http') ? u : `http://localhost:5000${u}`) : null;
+
 const CATEGORY_ICON = {
   Pothole: 'M', Streetlight: 'E', Garbage: 'W', Drainage: 'D', 'Water Leakage': 'H', Others: 'G',
 };
@@ -39,7 +42,7 @@ export default function IssueCard({ issue, govView = false }) {
       {(issue.imageUrl || issue.photoUrl) ? (
         <div className="relative h-36 overflow-hidden">
           <img
-            src={`http://localhost:5000${issue.imageUrl || issue.photoUrl}`}
+            src={imgUrl(issue.imageUrl || issue.photoUrl)}
             alt={issue.title}
             className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
           />

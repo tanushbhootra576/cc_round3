@@ -10,12 +10,21 @@ const LLM_MODEL    = process.env.LLM_MODEL    || 'google/gemma-3-27b-it';
 const VALID_CATEGORIES = ['Pothole', 'Streetlight', 'Garbage', 'Drainage', 'Water Leakage', 'Others'];
 
 /**
- * Reads an image from disk and encodes it as a base64 data URL.
+ * Reads an image from a URL or local disk path and encodes it as a base64 data URL.
  */
-function imageToBase64DataUrl(filePath) {
-  const abs = path.resolve(filePath.replace(/^\//, ''));
+async function imageToBase64DataUrl(imageSource) {
+  // Remote URL (e.g. Cloudinary HTTPS URL)
+  if (imageSource.startsWith('http://') || imageSource.startsWith('https://')) {
+    const response = await axios.get(imageSource, { responseType: 'arraybuffer' });
+    const contentType = response.headers['content-type'] || 'image/jpeg';
+    const mime = contentType.split(';')[0].trim();
+    const buffer = Buffer.from(response.data);
+    return `data:${mime};base64,${buffer.toString('base64')}`;
+  }
+  // Local file fallback
+  const abs = path.resolve(imageSource.replace(/^\//, ''));
   const buffer = fs.readFileSync(abs);
-  const ext = path.extname(filePath).replace('.', '').toLowerCase();
+  const ext = path.extname(imageSource).replace('.', '').toLowerCase();
   const mime = ext === 'jpg' || ext === 'jpeg' ? 'image/jpeg'
              : ext === 'png' ? 'image/png'
              : ext === 'webp' ? 'image/webp'
@@ -40,7 +49,7 @@ export async function classifyIssueImage(imageFilePath, userCategory = '') {
 
   let dataUrl;
   try {
-    dataUrl = imageToBase64DataUrl(imageFilePath);
+    dataUrl = await imageToBase64DataUrl(imageFilePath);
   } catch (err) {
     console.warn('[aiService] Could not read image file:', err.message);
     return { detectedCategory: userCategory, aiVerified: false, confidence: 0, aiNote: 'Image file unreadable.' };

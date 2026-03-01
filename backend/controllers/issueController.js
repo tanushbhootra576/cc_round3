@@ -56,8 +56,8 @@ export const createIssue = async (req, res) => {
       return res.status(400).json({ message: 'Valid latitude and longitude are required.' });
     }
 
-    // Image saved to disk by multer — build a relative URL if file was uploaded
-    const imageUrl = req.file ? `/${req.file.path.replace(/\\/g, '/')}` : '';
+    // Cloudinary URL returned by multer-storage-cloudinary (req.file.path is the full HTTPS URL)
+    const imageUrl = req.file ? req.file.path : ''
 
     // ── AI Vision Classification ──────────────────────────────────────────────
     let aiVerified = false;
@@ -470,8 +470,8 @@ export const reclassifyIssue = async (req, res) => {
       return res.status(400).json({ message: 'No image attached to this issue.' });
     }
 
-    // Strip leading slash so classifyIssueImage gets a relative path
-    const imagePath = issue.imageUrl.replace(/^\//, '');
+    // Pass the Cloudinary URL directly to classifyIssueImage
+    const imagePath = issue.imageUrl;
     const result = await classifyIssueImage(imagePath, issue.category);
 
     issue.aiVerified         = result.aiVerified;
