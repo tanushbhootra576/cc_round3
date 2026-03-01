@@ -14,6 +14,8 @@
 - [Environment Setup](#environment-setup)
 - [API Endpoints](#api-endpoints-quick-reference)
 - [Troubleshooting](#troubleshooting)
+ - [Screenshots](#screenshots)
+ - [Demo & Presentation](#demo--presentation)
 
 ---
 
