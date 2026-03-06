@@ -106,6 +106,18 @@
 </p>
 <p align="center"><em>Citizen Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Issue Detail</em></p>
 
+<p align="center">
+  <img src="client/public/screenshots/budget.png" alt="Fiscal Command Center — Budget Dashboard" width="48%" />
+  &nbsp;
+  <img src="client/public/screenshots/wards.png" alt="Ward Management" width="48%" />
+</p>
+<p align="center"><em>Fiscal Command Center (Budget Dashboard) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ward Management</em></p>
+
+<p align="center">
+  <img src="client/public/screenshots/Screenshot 2026-03-07 014154.png" alt="Government Analytics" width="96%" />
+</p>
+<p align="center"><em>City Intelligence Analytics Dashboard</em></p>
+
 ---
 
 ## Detailed Feature Breakdowns
@@ -426,8 +438,8 @@ MongoDB
 
 | Resource                  | Link                                                                                                        | Description                                            |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| 🎬 **Demo Video**         | [Watch on Google Drive](https://drive.google.com/file/d/1PGxFAuCFJuLhGEp5MuZfKBpRvgh3_2o7/view?usp=sharing) | Full walkthrough of the citizen and government portals |
-| 📊 **Presentation (PPT)** | [Open on Google Drive](https://drive.google.com/file/d/1SnqoXMkdEb1A9Z4SH0A2Aw6QRQzH2QV2/view?usp=sharing)  | Project architecture, features, and design decisions   |
+| 🎬 **Demo Video**         | [Watch on Google Drive](https://drive.google.com/file/d/1xpuIuD8RugeATRKW7oATbxpfwvhaSn7N/view?usp=sharing) | Full walkthrough of the citizen and government portals |
+| 📊 **Presentation (PPT)** | [Open on Google Drive](https://docs.google.com/presentation/d/1I_mqkpSsxG3iS_1NiP3gy8OB5VEilahN/edit)  | Project architecture, features, and design decisions   |
 | 💻 **Source Code**        | [github.com/tanushbhootra576/cc_round3](https://github.com/tanushbhootra576/cc_round3)                      | Full source — backend, frontend, and seed scripts      |
 
 ---
