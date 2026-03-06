@@ -57,20 +57,40 @@
 
 ### Citizen Portal
 
-- **Landing Page** — Hero section showcasing platform benefits, features, and call-to-action buttons
-- **Report Issue** — Mobile-first form with photo capture, GPS location, category selection
-- **Citizen Dashboard** — Full reporting hub with live city map, issue stats, filters, and pagination _(see detailed breakdown below)_
-- **Issue Detail** — Full issue information, map location, status history, upvote functionality
-- **Citizen Profile** — User profile showing reported issues, stats, and contact information
+| Screen | Description |
+| ------ | ----------- |
+| **Landing Page** | Hero section showcasing platform benefits, features, and call-to-action buttons |
+| **Report Issue** | Mobile-first form with photo capture, GPS location, category selection |
+| **Citizen Dashboard** | Full reporting hub with live city map, issue stats, filters, and pagination *(see detailed breakdown below)* |
+| **Issue Detail** | Full issue information, map location, status history, upvote functionality |
+| **Citizen Profile** | User profile showing reported issues, stats, and contact information |
 
 ### Government Portal
 
-- **Government Dashboard** — Command center with 4 views: All Issues, Clustered Hotspots, By Status, Analytics
-- **Issue Management** — Detailed issue view with reassignment, status updates, bulk actions
-- **Fiscal Command Center (Budget Dashboard)** — Ward-level resource allocation and AI-guided budget planning _(see detailed breakdown below)_
-- **City Intelligence Analytics** — KPI tracking, CHI score, resource demand forecasts, and congestion heatmaps _(see detailed breakdown below)_
-- **Live Map** — Interactive map showing all issue clusters with real-time updates
-- **Government Profile** — Portal stats including total issues, resolved count, resolution rate, issue list
+| Screen | Description |
+| ------ | ----------- |
+| **Government Dashboard** | Command center with 4 views: All Issues, Clustered Hotspots, By Status, Analytics |
+| **Issue Management** | Detailed issue view with reassignment, status updates, bulk actions |
+| **Fiscal Command Center** | Ward-level resource allocation and AI-guided budget planning *(see detailed breakdown below)* |
+| **City Intelligence Analytics** | KPI tracking, CHI score, resource demand forecasts, and congestion heatmaps *(see detailed breakdown below)* |
+| **Live Map** | Interactive map showing all issue clusters with real-time updates |
+| **Government Profile** | Portal stats including total issues, resolved count, resolution rate, issue list |
+
+### Gallery
+
+<p align="center">
+  <img src="client/public/screenshots/Screenshot from 2026-02-28 17-56-15.png" alt="Landing Page" width="48%" />
+  &nbsp;
+  <img src="client/public/screenshots/Screenshot from 2026-03-01 18-58-25.png" alt="Report Issue" width="48%" />
+</p>
+<p align="center"><em>Landing Page &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report Issue Form</em></p>
+
+<p align="center">
+  <img src="client/public/screenshots/Screenshot from 2026-03-01 19-07-48.png" alt="Citizen Dashboard" width="48%" />
+  &nbsp;
+  <img src="client/public/screenshots/Screenshot from 2026-03-01 19-08-40.png" alt="Issue Detail" width="48%" />
+</p>
+<p align="center"><em>Citizen Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Issue Detail</em></p>
 
 ---
 
@@ -253,30 +273,62 @@ curl -X POST http://localhost:5000/api/auth/create-gov \
 
 ## Environment Setup
 
-Create `backend/.env`:
+### `backend/.env` — Complete Reference
+
+Create this file at `backend/.env` before starting the server. All variables marked **Required** must be set or the server will refuse to start.
+
+| Variable | Required | Default | Description |
+| -------- | -------- | ------- | ----------- |
+| `MONGO_URI` | ✅ Required | `mongodb://localhost:27017/civicplus` | Full MongoDB connection string. Use a [MongoDB Atlas](https://cloud.mongodb.com) URI for production. |
+| `JWT_SECRET` | ✅ Required | *(none — server exits if missing)* | Long random string (≥ 64 chars) used to sign and verify JWT tokens. Generate with `openssl rand -hex 64`. |
+| `JWT_EXPIRES_IN` | Optional | `7d` | JWT token lifetime. Accepts any [ms](https://github.com/vercel/ms) format, e.g. `1d`, `12h`, `7d`. |
+| `PORT` | Optional | `5000` | Port the Express server listens on. |
+| `CLIENT_URL` | ✅ Required | `http://localhost:5173` | Exact origin of the React frontend. Used for CORS allow-list. **Must match** the Vite dev server URL (or your production frontend URL). |
+| `CLOUDINARY_CLOUD_NAME` | ✅ Required for uploads | *(none)* | Your Cloudinary cloud name. Find it on the [Cloudinary Dashboard](https://cloudinary.com/console). |
+| `CLOUDINARY_API_KEY` | ✅ Required for uploads | *(none)* | Cloudinary API key (numeric string). |
+| `CLOUDINARY_API_SECRET` | ✅ Required for uploads | *(none)* | Cloudinary API secret. **Never expose this to the client.** |
+| `LLM_API_KEY` | Optional | *(none)* | API key for the LLM provider used by the AI decision service (`aiService.js`). Required for AI issue categorisation and budget recommendations. |
+| `LLM_BASE_URL` | Optional | `https://api.featherless.ai/v1` | Base URL of the OpenAI-compatible LLM API endpoint. Override to use a different provider. |
+| `LLM_MODEL` | Optional | `google/gemma-3-27b-it` | Model identifier passed to the LLM API. Change to any model supported by your provider. |
+
+**Full `backend/.env` template:**
 
 ```env
+# ── Database ─────────────────────────────────────────────────
 MONGO_URI=mongodb://localhost:27017/civicplus
-JWT_SECRET=replace_with_a_long_random_secret_min_64_chars
+
+# ── Auth ─────────────────────────────────────────────────────
+JWT_SECRET=replace_with_at_least_64_random_chars
 JWT_EXPIRES_IN=7d
+
+# ── Server ───────────────────────────────────────────────────
 PORT=5000
 CLIENT_URL=http://localhost:5173
-GEMINI_API_KEY=optional_for_ai_features
-```
 
-Cloudinary configuration (add these to `backend/.env`):
-
-```env
+# ── Cloudinary (image uploads) ───────────────────────────────
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+# ── AI / LLM (optional) ──────────────────────────────────────
+LLM_API_KEY=your_llm_api_key
+LLM_BASE_URL=https://api.featherless.ai/v1
+LLM_MODEL=google/gemma-3-27b-it
 ```
 
-Client environment (create `client/.env`):
+### `client/.env` — Frontend Variables
+
+| Variable | Required | Default | Description |
+| -------- | -------- | ------- | ----------- |
+| `VITE_BACKEND_URL` | Optional | `http://localhost:5000` | Full base URL of the backend API. All Axios requests are prefixed with this value. Change to your deployed backend URL for production builds. |
+
+**`client/.env` template:**
 
 ```env
 VITE_BACKEND_URL=http://localhost:5000
 ```
+
+> **Security note:** Never commit either `.env` file to version control. Both are already included in `.gitignore`. The `CLOUDINARY_API_SECRET` and `JWT_SECRET` in particular must be kept server-side only.
 
 ---
 
