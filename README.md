@@ -4,6 +4,20 @@
 >
 > A production-ready civic issue reporting platform with smart geo-clustering, real-time notifications, transparent audit trails, and role-based dashboards for citizens and government officials.
 
+<p align="center">
+  <a href="https://drive.google.com/file/d/1PGxFAuCFJuLhGEp5MuZfKBpRvgh3_2o7/view?usp=sharing">
+    <img src="https://img.shields.io/badge/▶%20Demo%20Video-Watch%20Now-red?style=for-the-badge&logo=google-drive&logoColor=white" alt="Demo Video" />
+  </a>
+  &nbsp;
+  <a href="https://drive.google.com/file/d/1SnqoXMkdEb1A9Z4SH0A2Aw6QRQzH2QV2/view?usp=sharing">
+    <img src="https://img.shields.io/badge/📊%20Presentation-Open%20PPT-blue?style=for-the-badge&logo=google-drive&logoColor=white" alt="Presentation" />
+  </a>
+  &nbsp;
+  <a href="https://github.com/tanushbhootra576/cc_round3">
+    <img src="https://img.shields.io/badge/GitHub-cc__round3-black?style=for-the-badge&logo=github" alt="GitHub" />
+  </a>
+</p>
+
 ---
 
 ## Quick Navigation
@@ -57,24 +71,24 @@
 
 ### Citizen Portal
 
-| Screen | Description |
-| ------ | ----------- |
-| **Landing Page** | Hero section showcasing platform benefits, features, and call-to-action buttons |
-| **Report Issue** | Mobile-first form with photo capture, GPS location, category selection |
-| **Citizen Dashboard** | Full reporting hub with live city map, issue stats, filters, and pagination *(see detailed breakdown below)* |
-| **Issue Detail** | Full issue information, map location, status history, upvote functionality |
-| **Citizen Profile** | User profile showing reported issues, stats, and contact information |
+| Screen                | Description                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Landing Page**      | Hero section showcasing platform benefits, features, and call-to-action buttons                              |
+| **Report Issue**      | Mobile-first form with photo capture, GPS location, category selection                                       |
+| **Citizen Dashboard** | Full reporting hub with live city map, issue stats, filters, and pagination _(see detailed breakdown below)_ |
+| **Issue Detail**      | Full issue information, map location, status history, upvote functionality                                   |
+| **Citizen Profile**   | User profile showing reported issues, stats, and contact information                                         |
 
 ### Government Portal
 
-| Screen | Description |
-| ------ | ----------- |
-| **Government Dashboard** | Command center with 4 views: All Issues, Clustered Hotspots, By Status, Analytics |
-| **Issue Management** | Detailed issue view with reassignment, status updates, bulk actions |
-| **Fiscal Command Center** | Ward-level resource allocation and AI-guided budget planning *(see detailed breakdown below)* |
-| **City Intelligence Analytics** | KPI tracking, CHI score, resource demand forecasts, and congestion heatmaps *(see detailed breakdown below)* |
-| **Live Map** | Interactive map showing all issue clusters with real-time updates |
-| **Government Profile** | Portal stats including total issues, resolved count, resolution rate, issue list |
+| Screen                          | Description                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Government Dashboard**        | Command center with 4 views: All Issues, Clustered Hotspots, By Status, Analytics                            |
+| **Issue Management**            | Detailed issue view with reassignment, status updates, bulk actions                                          |
+| **Fiscal Command Center**       | Ward-level resource allocation and AI-guided budget planning _(see detailed breakdown below)_                |
+| **City Intelligence Analytics** | KPI tracking, CHI score, resource demand forecasts, and congestion heatmaps _(see detailed breakdown below)_ |
+| **Live Map**                    | Interactive map showing all issue clusters with real-time updates                                            |
+| **Government Profile**          | Portal stats including total issues, resolved count, resolution rate, issue list                             |
 
 ### Gallery
 
@@ -277,19 +291,19 @@ curl -X POST http://localhost:5000/api/auth/create-gov \
 
 Create this file at `backend/.env` before starting the server. All variables marked **Required** must be set or the server will refuse to start.
 
-| Variable | Required | Default | Description |
-| -------- | -------- | ------- | ----------- |
-| `MONGO_URI` | ✅ Required | `mongodb://localhost:27017/civicplus` | Full MongoDB connection string. Use a [MongoDB Atlas](https://cloud.mongodb.com) URI for production. |
-| `JWT_SECRET` | ✅ Required | *(none — server exits if missing)* | Long random string (≥ 64 chars) used to sign and verify JWT tokens. Generate with `openssl rand -hex 64`. |
-| `JWT_EXPIRES_IN` | Optional | `7d` | JWT token lifetime. Accepts any [ms](https://github.com/vercel/ms) format, e.g. `1d`, `12h`, `7d`. |
-| `PORT` | Optional | `5000` | Port the Express server listens on. |
-| `CLIENT_URL` | ✅ Required | `http://localhost:5173` | Exact origin of the React frontend. Used for CORS allow-list. **Must match** the Vite dev server URL (or your production frontend URL). |
-| `CLOUDINARY_CLOUD_NAME` | ✅ Required for uploads | *(none)* | Your Cloudinary cloud name. Find it on the [Cloudinary Dashboard](https://cloudinary.com/console). |
-| `CLOUDINARY_API_KEY` | ✅ Required for uploads | *(none)* | Cloudinary API key (numeric string). |
-| `CLOUDINARY_API_SECRET` | ✅ Required for uploads | *(none)* | Cloudinary API secret. **Never expose this to the client.** |
-| `LLM_API_KEY` | Optional | *(none)* | API key for the LLM provider used by the AI decision service (`aiService.js`). Required for AI issue categorisation and budget recommendations. |
-| `LLM_BASE_URL` | Optional | `https://api.featherless.ai/v1` | Base URL of the OpenAI-compatible LLM API endpoint. Override to use a different provider. |
-| `LLM_MODEL` | Optional | `google/gemma-3-27b-it` | Model identifier passed to the LLM API. Change to any model supported by your provider. |
+| Variable                | Required                | Default                               | Description                                                                                                                                     |
+| ----------------------- | ----------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `MONGO_URI`             | ✅ Required             | `mongodb://localhost:27017/civicplus` | Full MongoDB connection string. Use a [MongoDB Atlas](https://cloud.mongodb.com) URI for production.                                            |
+| `JWT_SECRET`            | ✅ Required             | _(none — server exits if missing)_    | Long random string (≥ 64 chars) used to sign and verify JWT tokens. Generate with `openssl rand -hex 64`.                                       |
+| `JWT_EXPIRES_IN`        | Optional                | `7d`                                  | JWT token lifetime. Accepts any [ms](https://github.com/vercel/ms) format, e.g. `1d`, `12h`, `7d`.                                              |
+| `PORT`                  | Optional                | `5000`                                | Port the Express server listens on.                                                                                                             |
+| `CLIENT_URL`            | ✅ Required             | `http://localhost:5173`               | Exact origin of the React frontend. Used for CORS allow-list. **Must match** the Vite dev server URL (or your production frontend URL).         |
+| `CLOUDINARY_CLOUD_NAME` | ✅ Required for uploads | _(none)_                              | Your Cloudinary cloud name. Find it on the [Cloudinary Dashboard](https://cloudinary.com/console).                                              |
+| `CLOUDINARY_API_KEY`    | ✅ Required for uploads | _(none)_                              | Cloudinary API key (numeric string).                                                                                                            |
+| `CLOUDINARY_API_SECRET` | ✅ Required for uploads | _(none)_                              | Cloudinary API secret. **Never expose this to the client.**                                                                                     |
+| `LLM_API_KEY`           | Optional                | _(none)_                              | API key for the LLM provider used by the AI decision service (`aiService.js`). Required for AI issue categorisation and budget recommendations. |
+| `LLM_BASE_URL`          | Optional                | `https://api.featherless.ai/v1`       | Base URL of the OpenAI-compatible LLM API endpoint. Override to use a different provider.                                                       |
+| `LLM_MODEL`             | Optional                | `google/gemma-3-27b-it`               | Model identifier passed to the LLM API. Change to any model supported by your provider.                                                         |
 
 **Full `backend/.env` template:**
 
@@ -318,8 +332,8 @@ LLM_MODEL=google/gemma-3-27b-it
 
 ### `client/.env` — Frontend Variables
 
-| Variable | Required | Default | Description |
-| -------- | -------- | ------- | ----------- |
+| Variable           | Required | Default                 | Description                                                                                                                                   |
+| ------------------ | -------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `VITE_BACKEND_URL` | Optional | `http://localhost:5000` | Full base URL of the backend API. All Axios requests are prefixed with this value. Change to your deployed backend URL for production builds. |
 
 **`client/.env` template:**
@@ -410,8 +424,11 @@ MongoDB
 
 ## Demo & Presentation
 
-- **Demo video:** [Watch the demo video](https://drive.google.com/file/d/1PGxFAuCFJuLhGEp5MuZfKBpRvgh3_2o7/view?usp=sharing)
-- **Presentation (PPT):** [Open the project presentation](https://drive.google.com/file/d/1SnqoXMkdEb1A9Z4SH0A2Aw6QRQzH2QV2/view?usp=sharing)
+| Resource                  | Link                                                                                                        | Description                                            |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| 🎬 **Demo Video**         | [Watch on Google Drive](https://drive.google.com/file/d/1PGxFAuCFJuLhGEp5MuZfKBpRvgh3_2o7/view?usp=sharing) | Full walkthrough of the citizen and government portals |
+| 📊 **Presentation (PPT)** | [Open on Google Drive](https://drive.google.com/file/d/1SnqoXMkdEb1A9Z4SH0A2Aw6QRQzH2QV2/view?usp=sharing)  | Project architecture, features, and design decisions   |
+| 💻 **Source Code**        | [github.com/tanushbhootra576/cc_round3](https://github.com/tanushbhootra576/cc_round3)                      | Full source — backend, frontend, and seed scripts      |
 
 ---
 
