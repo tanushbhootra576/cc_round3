@@ -2,8 +2,9 @@
 import { useNavigate } from 'react-router-dom';
 import api from '../api/axios';
 import IssueMap from '../components/IssueMap';
-import IotAlertBanner from '../components/IotAlertBanner';
 import StatusBadge from '../components/StatusBadge';
+import CongestionAlerts from '../components/CongestionAlerts';
+import IotAlertBanner from '../components/IotAlertBanner';
 import { useAuth } from '../context/AuthContext';
 import {
   Flame, ChevronRight, ChevronLeft, TrendingUp, CheckCircle2,
@@ -44,8 +45,8 @@ function NavItem({ icon: Icon, label, active, onClick }) {
     <button
       onClick={onClick}
       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-sm text-sm font-medium transition-colors text-left ${active
-          ? 'bg-blue-600 text-white'
-          : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+        ? 'bg-blue-600 text-white'
+        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
         }`}
     >
       <Icon size={15} />
@@ -118,7 +119,7 @@ function ReportsTable({ issues, title, total, statusFilter, catFilter, CATS, onS
             {issues.map((issue, i) => {
               const sev = issue.severityScore ?? 0;
               const sevColor = sev >= 70 ? 'text-red-600' : sev >= 50 ? 'text-amber-600' : 'text-green-600';
-              const sevBar   = sev >= 70 ? 'bg-red-500'  : sev >= 50 ? 'bg-amber-400'  : 'bg-green-500';
+              const sevBar = sev >= 70 ? 'bg-red-500' : sev >= 50 ? 'bg-amber-400' : 'bg-green-500';
               return (
                 <tr key={issue._id} onClick={() => navigate(`/issues/${issue._id}`)}
                   className={`cursor-pointer transition-colors hover:bg-blue-50 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
@@ -249,10 +250,10 @@ export default function GovernmentDashboard() {
       (!catFilter || i.category === catFilter)
     )
     .sort((a, b) => {
-      if (sortOrder === 'newest')        return new Date(b.createdAt) - new Date(a.createdAt);
-      if (sortOrder === 'oldest')        return new Date(a.createdAt) - new Date(b.createdAt);
+      if (sortOrder === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
+      if (sortOrder === 'oldest') return new Date(a.createdAt) - new Date(b.createdAt);
       if (sortOrder === 'severity_desc') return (b.severityScore || 0) - (a.severityScore || 0);
-      if (sortOrder === 'severity_asc')  return (a.severityScore || 0) - (b.severityScore || 0);
+      if (sortOrder === 'severity_asc') return (a.severityScore || 0) - (b.severityScore || 0);
       return 0;
     });
   const totalPages = Math.max(1, Math.ceil(filteredIssues.length / ITEMS_PER_PAGE));
@@ -263,7 +264,7 @@ export default function GovernmentDashboard() {
   const aiVerifiedCount = allIssues.filter(i => i.aiVerified).length;
   const aiUnverifiedCount = allIssues.length - aiVerifiedCount;
 
-  const NAV_LABELS = { overview: 'Overview', reports: 'All Reports', map: 'Map View', analytics: 'Analytics' };
+  const NAV_LABELS = { overview: 'Overview', reports: 'All Reports', map: 'Map View', alerts: 'City Alerts', analytics: 'Analytics' };
 
   /* ── Overview ─────────────────────────────────── */
   const OverviewView = (
@@ -381,6 +382,13 @@ export default function GovernmentDashboard() {
   const MapView = (
     <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm" style={{ height: 'calc(100vh - 120px)' }}>
       <IssueMap issues={mapIssues} title="FULL CITY ISSUE MAP" />
+    </div>
+  );
+
+  /* ── Alerts ──────────────────────────────────── */
+  const AlertsView = (
+    <div className="h-full">
+      <CongestionAlerts />
     </div>
   );
 
@@ -523,7 +531,7 @@ export default function GovernmentDashboard() {
               {topUpvoted.map((issue, i) => {
                 const sev = issue.severityScore ?? 0;
                 const sevColor = sev >= 70 ? 'text-red-600' : sev >= 50 ? 'text-amber-600' : 'text-green-600';
-                const sevBar   = sev >= 70 ? 'bg-red-500'  : sev >= 50 ? 'bg-amber-400'  : 'bg-green-500';
+                const sevBar = sev >= 70 ? 'bg-red-500' : sev >= 50 ? 'bg-amber-400' : 'bg-green-500';
                 return (
                   <div key={issue._id} onClick={() => navigate(`/issues/${issue._id}`)}
                     className="flex items-center gap-3 py-2 px-3 rounded-sm hover:bg-gray-50 cursor-pointer group border border-transparent hover:border-gray-200 transition-all">
@@ -573,8 +581,8 @@ export default function GovernmentDashboard() {
           </div>
           <p className="mono text-[9px] text-gray-400 tracking-widest mb-2 uppercase">Severity Distribution</p>
           {[['HIGH (≥70%)', allIssues.filter(i => (i.severityScore ?? 0) >= 70).length, 'bg-red-500', 'text-red-600'],
-            ['MEDIUM (50-69%)', allIssues.filter(i => { const s = i.severityScore ?? 0; return s >= 50 && s < 70; }).length, 'bg-amber-400', 'text-amber-700'],
-            ['LOW (<50%)', allIssues.filter(i => (i.severityScore ?? 0) < 50).length, 'bg-green-500', 'text-green-700'],
+          ['MEDIUM (50-69%)', allIssues.filter(i => { const s = i.severityScore ?? 0; return s >= 50 && s < 70; }).length, 'bg-amber-400', 'text-amber-700'],
+          ['LOW (<50%)', allIssues.filter(i => (i.severityScore ?? 0) < 50).length, 'bg-green-500', 'text-green-700'],
           ].map(([label, count, bar, text]) => (
             <div key={label} className="flex items-center gap-2 mb-2">
               <span className={`mono text-[9px] w-28 flex-shrink-0 ${text}`}>{label}</span>
@@ -621,7 +629,7 @@ export default function GovernmentDashboard() {
     </div>
   );
 
-  const views = { overview: OverviewView, reports: ReportsView, map: MapView, analytics: AnalyticsView };
+  const views = { overview: OverviewView, reports: ReportsView, map: MapView, alerts: AlertsView, analytics: AnalyticsView };
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
@@ -643,6 +651,7 @@ export default function GovernmentDashboard() {
           <NavItem icon={LayoutDashboard} label="Overview" active={activeNav === 'overview'} onClick={() => setActiveNav('overview')} />
           <NavItem icon={FileText} label="Reports" active={activeNav === 'reports'} onClick={() => setActiveNav('reports')} />
           <NavItem icon={Map} label="Map View" active={activeNav === 'map'} onClick={() => setActiveNav('map')} />
+          <NavItem icon={ShieldAlert} label="City Alerts" active={activeNav === 'alerts'} onClick={() => setActiveNav('alerts')} />
           <NavItem icon={TrendingUp} label="Analytics" active={activeNav === 'analytics'} onClick={() => setActiveNav('analytics')} />
         </nav>
 

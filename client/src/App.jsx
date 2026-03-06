@@ -10,6 +10,13 @@ import ReportIssue from './pages/ReportIssue'
 import IssueDetail from './pages/IssueDetail'
 import CitizenProfile from './pages/CitizenProfile'
 import GovernmentProfile from './pages/GovernmentProfile'
+import GovManageAlerts from './pages/GovManageAlerts'
+import GovAnnouncements from './pages/GovAnnouncements'
+import CityFeed from './pages/CityFeed'
+import GovAnalytics from './pages/GovAnalytics'
+import GovBudget from './pages/GovBudget'
+import WardManagement from './pages/WardManagement'
+import LiveDashboard from './pages/LiveDashboard'
 import './App.css'
 
 // Route guard helpers
@@ -43,9 +50,16 @@ function App() {
         {/* Citizen */}
         <Route path="/dashboard" element={<RequireAuth role="citizen"><CitizenDashboard /></RequireAuth>} />
         <Route path="/report" element={<RequireAuth role="citizen"><ReportIssue /></RequireAuth>} />
+        <Route path="/city-feed" element={<RequireAuth role="citizen"><CityFeed /></RequireAuth>} />
 
         {/* Government */}
         <Route path="/gov-dashboard" element={<RequireAuth role="government"><GovernmentDashboard /></RequireAuth>} />
+        <Route path="/gov-alerts" element={<RequireAuth role="government"><GovManageAlerts /></RequireAuth>} />
+        <Route path="/gov-announcements" element={<RequireAuth role="government"><GovAnnouncements /></RequireAuth>} />
+        <Route path="/gov-analytics" element={<RequireAuth role="government"><GovAnalytics /></RequireAuth>} />
+        <Route path="/gov-budget" element={<RequireAuth role="government"><GovBudget /></RequireAuth>} />
+        <Route path="/gov-wards" element={<RequireAuth role="government"><WardManagement /></RequireAuth>} />
+        <Route path="/gov-live" element={<RequireAuth role="government"><LiveDashboard /></RequireAuth>} />
 
         {/* Shared */}
         <Route path="/issues/:id" element={<RequireAuth><IssueDetail /></RequireAuth>} />

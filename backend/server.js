@@ -9,6 +9,12 @@ import { fileURLToPath } from 'url';
 
 import authRoutes from './routes/authRoutes.js';
 import issueRoutes from './routes/issueRoutes.js';
+import govCrudRoutes from './routes/govCrudRoutes.js';
+import citizenFeedRoutes from './routes/citizenFeedRoutes.js';
+import analyticsRoutes from './routes/analyticsRoutes.js';
+import wardRoutes from './routes/wardRoutes.js';
+import simulationRoutes from './routes/simulationRoutes.js';
+import { startSimulation } from './services/simulationService.js';
 
 // Validate required environment variables
 if (!process.env.JWT_SECRET) {
@@ -94,6 +100,11 @@ app.use(express.urlencoded({ extended: true }));
 // ── Routes ─────────────────────────────────────────────────────────────────
 app.use('/api/auth', authRoutes);
 app.use('/api/issues', issueRoutes);
+app.use('/api/gov', govCrudRoutes);
+app.use('/api/feed', citizenFeedRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/wards', wardRoutes);
+app.use('/api/sim', simulationRoutes);
 
 app.get('/', (_req, res) => res.json({ message: 'CivicPlus API running successfully' }));
 
@@ -113,6 +124,7 @@ mongoose
     console.log('[DB] MongoDB connected');
     httpServer.listen(PORT, () => console.log(`[Server] Running on http://localhost:${PORT}`));
     startIoTSimulation();
+    startSimulation(io);
   })
   .catch((err) => {
     console.error('[DB] Connection failed:', err.message);

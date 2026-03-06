@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
 import { useState } from 'react';
-import { Bell, ChevronDown, LogOut, Shield, User, LayoutDashboard, Plus } from 'lucide-react';
+import { Bell, ChevronDown, LogOut, Shield, User, LayoutDashboard, Plus, Radio, AlertTriangle, Megaphone, BarChart3, Wallet, Activity, Globe } from 'lucide-react';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -43,6 +43,13 @@ export default function Navbar() {
                 My Issues
               </Link>
               <Link
+                to="/city-feed"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <Radio size={13} />
+                City Feed
+              </Link>
+              <Link
                 to="/report"
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-semibold bg-blue-600 text-white hover:bg-blue-700 transition-colors"
               >
@@ -52,13 +59,57 @@ export default function Navbar() {
             </>
           )}
           {user?.role === 'government' && (
-            <Link
-              to="/gov-dashboard"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
-            >
-              <Shield size={13} />
-              Command Center
-            </Link>
+            <>
+              <Link
+                to="/gov-dashboard"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <Shield size={13} />
+                Command Center
+              </Link>
+              <Link
+                to="/gov-alerts"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <AlertTriangle size={13} />
+                City Alerts
+              </Link>
+              <Link
+                to="/gov-announcements"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <Megaphone size={13} />
+                Announcements
+              </Link>
+              <Link
+                to="/gov-analytics"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <BarChart3 size={13} />
+                Analytics
+              </Link>
+              <Link
+                to="/gov-budget"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <Wallet size={13} />
+                Budget
+              </Link>
+              <Link
+                to="/gov-wards"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+              >
+                <Activity size={13} />
+                Manage Wards
+              </Link>
+              <Link
+                to="/gov-live"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-xs font-medium text-gray-900 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+              >
+                <Globe size={13} />
+                Live Dashboard
+              </Link>
+            </>
           )}
         </div>
 
