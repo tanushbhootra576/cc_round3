@@ -31,9 +31,15 @@ export const startSimulation = (io) => {
             }
 
             const updates = await Promise.all(wards.map(async (ward) => {
-                // Random fluctuation +/- 2%
+                // Random fluctuation influenced by budget
                 RESOURCE_KEYS.forEach(key => {
+                    const res = ward.resources[key];
+                    // Baseline change +/- 2%
                     let change = (Math.random() - 0.5) * 4;
+
+                    // Budget Effect: Higher budget relative to 100k dampens utilization growth
+                    const budgetFactor = Math.max(0.5, 1.5 - (res.budget / 100000));
+                    if (change > 0) change *= budgetFactor;
 
                     // Apply disaster effects
                     if (currentDisaster) {

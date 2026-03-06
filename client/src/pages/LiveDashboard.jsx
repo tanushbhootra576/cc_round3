@@ -91,7 +91,7 @@ export default function LiveDashboard() {
 
     const triggerSimulationDisaster = async (type) => {
         try {
-            await api.post('/api/sim/disaster', { type, severity: 'High' });
+            await api.post('/sim/disaster', { type, severity: 'High' });
         } catch (err) {
             alert('Simulation control failed');
         }
@@ -102,7 +102,7 @@ export default function LiveDashboard() {
             setIsReplaying(true);
             const end = new Date();
             const start = new Date(end.getTime() - 15 * 60000); // Last 15 mins
-            const res = await api.get(`/api/sim/replay?start=${start.toISOString()}&end=${end.toISOString()}`);
+            const res = await api.get(`/sim/replay?start=${start.toISOString()}&end=${end.toISOString()}`);
 
             // Group readings by timestamp to simulate "frames"
             const grouped = res.data.reduce((acc, r) => {
