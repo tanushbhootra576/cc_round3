@@ -23,20 +23,20 @@
 
 | Feature                        | Description                                                                                               |
 | ------------------------------ | --------------------------------------------------------------------------------------------------------- |
-| **📸 Photo Reports**           | Citizens capture infrastructure issues with GPS location, category, and description                       |
-| **🤖 AI Verification**         | Image validation and automatic issue categorization                                                       |
-| **📍 Smart Geo-Clustering**    | Automatically groups similar reports within 100m radius into hotspots, eliminating duplicates             |
-| **⚡ Priority Scoring**        | Issues ranked by urgency: cluster size, age, upvotes, severity                                            |
-| **🗺️ Interactive Map**         | Live map visualization with custom markers for each issue cluster                                         |
-| **🔔 Real-Time Notifications** | WebSocket-powered instant updates on issue status changes via Socket.IO                                   |
-| **👥 User Profiles**           | Separate profile pages for citizens (track reported issues) and government (view managed issues)          |
-| **📊 Government Dashboard**    | Command center to manage, prioritize, reassign, and resolve issues with bulk actions                      |
-| **🎯 Status Tracking**         | Transparent issue timeline with full audit trail of all status changes                                    |
-| **✅ Issue Resolution**        | Government can mark issues resolved, automatically notify all affected citizens with confetti celebration |
-| **🔐 JWT Authentication**      | Stateless auth with role-based access control (citizen/government)                                        |
-| **📋 Role-Based Access**       | Citizen and Government portals with separate views and permissions                                        |
-| **💾 File Upload**             | Multer-powered image uploads with validation and secure storage                                           |
-| **🏠 Responsive Design**       | Mobile-first UI optimized for all devices using Tailwind CSS                                              |
+| ** Photo Reports**           | Citizens capture infrastructure issues with GPS location, category, and description                       |
+| ** AI Verification**         | Image validation and automatic issue categorization                                                       |
+| ** Smart Geo-Clustering**    | Automatically groups similar reports within 100m radius into hotspots, eliminating duplicates             |
+| ** Priority Scoring**        | Issues ranked by urgency: cluster size, age, upvotes, severity                                            |
+| ** Interactive Map**         | Live map visualization with custom markers for each issue cluster                                         |
+| ** Real-Time Notifications** | WebSocket-powered instant updates on issue status changes via Socket.IO                                   |
+| ** User Profiles**           | Separate profile pages for citizens (track reported issues) and government (view managed issues)          |
+| ** Government Dashboard**    | Command center to manage, prioritize, reassign, and resolve issues with bulk actions                      |
+| ** Status Tracking**         | Transparent issue timeline with full audit trail of all status changes                                    |
+| ** Issue Resolution**        | Government can mark issues resolved, automatically notify all affected citizens with confetti celebration |
+| ** JWT Authentication**      | Stateless auth with role-based access control (citizen/government)                                        |
+| ** Role-Based Access**       | Citizen and Government portals with separate views and permissions                                        |
+| ** File Upload**             | Multer-powered image uploads with validation and secure storage                                           |
+| ** Responsive Design**       | Mobile-first UI optimized for all devices using Tailwind CSS                                              |
 
 ---
 
